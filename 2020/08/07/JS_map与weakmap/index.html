@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>JS_map、weakmap与object | 前端小泷包</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="JS map 与 WeakMapMap 和 weakMap 是 ES6 出现的数据结构。和 object 类似，都是可以键值对的存储 map 本质上是键值对的集合，类似集合 可以遍历，方法很多，可以跟各种数据格式转换  WeakMap 只接受对象作为键名（null 除外），不接受其他类型的值作为键名  键名指向的对象，不计入垃圾回收机制  WeakMap 只能使用引用类型作为键，当这个键在其他地方">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JS_map、weakmap与object">
+<meta property="og:url" content="http://example.com/2020/08/07/JS_map%E4%B8%8Eweakmap/index.html">
+<meta property="og:site_name" content="前端小泷包">
+<meta property="og:description" content="JS map 与 WeakMapMap 和 weakMap 是 ES6 出现的数据结构。和 object 类似，都是可以键值对的存储 map 本质上是键值对的集合，类似集合 可以遍历，方法很多，可以跟各种数据格式转换  WeakMap 只接受对象作为键名（null 除外），不接受其他类型的值作为键名  键名指向的对象，不计入垃圾回收机制  WeakMap 只能使用引用类型作为键，当这个键在其他地方">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-08-07T09:00:00.000Z">
+<meta property="article:modified_time" content="2023-08-09T09:58:37.981Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="JavaScript">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="前端小泷包" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">前端小泷包</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-JS_map与weakmap" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/08/07/JS_map%E4%B8%8Eweakmap/" class="article-date">
+  <time class="dt-published" datetime="2020-08-07T09:00:00.000Z" itemprop="datePublished">2020-08-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      JS_map、weakmap与object
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="JS-map-与-WeakMap"><a href="#JS-map-与-WeakMap" class="headerlink" title="JS map 与 WeakMap"></a>JS map 与 WeakMap</h2><p>Map 和 weakMap 是 ES6 出现的数据结构。和 object 类似，都是可以键值对的存储</p>
+<h3 id="map"><a href="#map" class="headerlink" title="map"></a>map</h3><ol>
+<li>本质上是键值对的集合，类似集合</li>
+<li>可以遍历，方法很多，可以跟各种数据格式转换</li>
+</ol>
+<h3 id="WeakMap"><a href="#WeakMap" class="headerlink" title="WeakMap"></a>WeakMap</h3><ol>
+<li><p>只接受对象作为键名（null 除外），不接受其他类型的值作为键名</p>
+</li>
+<li><p>键名指向的对象，不计入垃圾回收机制</p>
+<ol>
+<li><p>WeakMap 只能使用引用类型作为键，当这个键在其他地方没有被引用的时，这个键值对将会被回收</p>
+</li>
+<li><p>代码示例一<br>{} 这个对象在其他地方没有被引用， 所有这行代码在执行完毕后，这个键就会被销毁。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> wm = <span class="keyword">new</span> <span class="title class_">WeakMap</span>();</span><br><span class="line">wm.<span class="title function_">set</span>(&#123;&#125;, <span class="string">&quot;val&quot;</span>);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>代码示例二<br>由于这个 key 一直被 container 所引用， 所以这个 key 不会被回收。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> wm = <span class="keyword">new</span> <span class="title class_">WeakMap</span>();</span><br><span class="line"><span class="keyword">const</span> container = &#123; <span class="attr">key</span>: &#123;&#125;&#125;;</span><br><span class="line">wm.<span class="title function_">set</span>(container.<span class="property">key</span>, <span class="string">&quot;val&quot;</span>);</span><br></pre></td></tr></table></figure></li>
+</ol>
+</li>
+<li><p>不能遍历，方法同 get、set、has、delete</p>
+<ol>
+<li>WeakMap 对象的键值对，任何时候可能被回收，所以没有内置迭代器。</li>
+<li>注意，map_1[Symbol.iterator]和 map_1.entries 是一样的</li>
+</ol>
+</li>
+</ol>
+<h2 id="JS-Map-与-Object"><a href="#JS-Map-与-Object" class="headerlink" title="JS Map 与 Object"></a>JS Map 与 Object</h2><h3 id="Map-与-Object-比较"><a href="#Map-与-Object-比较" class="headerlink" title="Map 与 Object 比较"></a>Map 与 Object 比较</h3><ol>
+<li><p>Object 只能使用字符串、数字、Symbol 作为 key，但 Map 可以任何数据类型作为 key</p>
+</li>
+<li><p>Map 保证了插入顺序</p>
+<ol>
+<li><p>代码示例<br>迭代器里会有一个 next 函数, 可以 通过 next()去访问第一个。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> m1 = <span class="keyword">new</span> <span class="title class_">Map</span>([</span><br><span class="line">    [<span class="string">&quot;key1&quot;</span>, <span class="string">&quot;val1&quot;</span>],</span><br><span class="line">    [<span class="string">&quot;key2&quot;</span>, <span class="string">&quot;val2&quot;</span>],</span><br><span class="line">    [<span class="string">&quot;key3&quot;</span>, <span class="string">&quot;val3&quot;</span>]</span><br><span class="line">]);</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> [key, value] <span class="keyword">of</span> m1) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(key, value);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> top = m1.<span class="title function_">entries</span>().<span class="title function_">next</span>()</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(top)</span><br><span class="line"><span class="comment">// &#123; value: [ &#x27;key1&#x27;, &#x27;val1&#x27; ], done: false &#125;</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title class_">Array</span>.<span class="title function_">from</span>(m1))</span><br><span class="line"><span class="comment">// [ [ &#x27;key1&#x27;, &#x27;val1&#x27; ], [ &#x27;key2&#x27;, &#x27;val2&#x27; ], [ &#x27;key3&#x27;, &#x27;val3&#x27; ] ]</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+</li>
+<li><p>Map 内置了迭代器，可以 for-of</p>
+</li>
+<li><p>Map 提供操作键值对的 api</p>
+</li>
+<li><p>Map 使用类似 hash 表的算法实现了快速查找和删除操作，处理大量数据时比 object 高效</p>
+</li>
+</ol>
+<h3 id="Map-与-Object-互转"><a href="#Map-与-Object-互转" class="headerlink" title="Map 与 Object 互转"></a>Map 与 Object 互转</h3><ol>
+<li><p>Object 转 Map</p>
+<ol>
+<li><p>代码如下 new Map(Object.entries(obj))</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> obj = &#123;</span><br><span class="line">    <span class="string">&quot;key1&quot;</span>: <span class="string">&quot;val1&quot;</span>,</span><br><span class="line">    <span class="string">&quot;key2&quot;</span>: <span class="string">&quot;val2&quot;</span>,</span><br><span class="line">    <span class="string">&quot;key3&quot;</span>: <span class="string">&quot;val3&quot;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> res = <span class="title class_">Object</span>.<span class="title function_">entries</span>(obj)</span><br><span class="line"><span class="comment">//[ [ &#x27;key1&#x27;, &#x27;val1&#x27; ], [ &#x27;key2&#x27;, &#x27;val2&#x27; ], [ &#x27;key3&#x27;, &#x27;val3&#x27; ] ]</span></span><br><span class="line"><span class="keyword">let</span> map = <span class="keyword">new</span> <span class="title class_">Map</span>(res)</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(map)</span><br></pre></td></tr></table></figure></li>
+</ol>
+</li>
+<li><p>Map 转 Object</p>
+<ol>
+<li><p>代码如下 Object.fromEntries(map.entries())</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> m1 = <span class="keyword">new</span> <span class="title class_">Map</span>([</span><br><span class="line">    [<span class="string">&quot;key1&quot;</span>, <span class="string">&quot;val1&quot;</span>],</span><br><span class="line">    [<span class="string">&quot;key2&quot;</span>, <span class="string">&quot;val2&quot;</span>],</span><br><span class="line">    [<span class="string">&quot;key3&quot;</span>, <span class="string">&quot;val3&quot;</span>]</span><br><span class="line">]);</span><br><span class="line"><span class="keyword">let</span> res = m1.<span class="title function_">entries</span>()</span><br><span class="line"><span class="comment">//[Map Iterator] &#123; [ &#x27;key1&#x27;, &#x27;val1&#x27; ], [ &#x27;key2&#x27;, &#x27;val2&#x27; ], [ &#x27;key3&#x27;, &#x27;val3&#x27; ] &#125;</span></span><br><span class="line"><span class="keyword">const</span> newObj = <span class="title class_">Object</span>.<span class="title function_">fromEntries</span>(res)</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(newObj, <span class="string">&#x27;我是新对象&#x27;</span>)</span><br><span class="line"><span class="comment">//&#123;key1: &#x27;val1&#x27;, key2: &#x27;val2&#x27;, key3: &#x27;val3&#x27;&#125;</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+</li>
+</ol>
+<h2 id="Object"><a href="#Object" class="headerlink" title="Object"></a>Object</h2><h3 id="让-Object-使用-for-of"><a href="#让-Object-使用-for-of" class="headerlink" title="让 Object 使用 for-of"></a>让 Object 使用 for-of</h3><ol>
+<li><p>Object 是不支持 for-of 遍历</p>
+</li>
+<li><p>JS 在一个数据或它的原型链上找到了 Symbol.iterator 方法，那么认为是可以被 for-of 遍历的。所以我们在手写的时候，要给 Object 添加 Symbol.iterator 方法，并调用迭代器的 next()方法，拿到返回的对象，并返回此次 value 值，以及 done 值。done 为 true 结束遍历，done 为 false，展示此次 value。</p>
+</li>
+<li><p>代码示例</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> obj = &#123;</span><br><span class="line">    <span class="attr">key</span>: <span class="string">&#x27;val1&#x27;</span>,</span><br><span class="line">    <span class="attr">key2</span>: <span class="string">&#x27;val2&#x27;</span>,</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// Object.prototype[Symbol.iterator]</span></span><br><span class="line">obj[<span class="title class_">Symbol</span>.<span class="property">iterator</span>] = <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">let</span> keys = <span class="title class_">Object</span>.<span class="title function_">keys</span>(<span class="variable language_">this</span>);<span class="comment">//先通过Object.keys()拿到对象中所有的属性名</span></span><br><span class="line">    <span class="keyword">let</span> index = <span class="number">0</span>;<span class="comment">//为上面拿到的keys数组定义一个初始索引值</span></span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        <span class="comment">//给这个迭代器写上next方法，让for of调用</span></span><br><span class="line">        <span class="attr">next</span>: <span class="function">() =&gt;</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> &#123;</span><br><span class="line">                <span class="attr">value</span>: <span class="variable language_">this</span>[keys[index++]],<span class="comment">//获取到当前属性名对应的值后将index++</span></span><br><span class="line">                <span class="attr">done</span>: index &gt; keys.<span class="property">length</span> ? <span class="literal">true</span> : <span class="literal">false</span>,</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> value <span class="keyword">of</span> obj) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(value); <span class="comment">// val1 val2</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="使用-delete-删除-object-属性时有什么问题"><a href="#使用-delete-删除-object-属性时有什么问题" class="headerlink" title="使用 delete 删除 object 属性时有什么问题"></a>使用 delete 删除 object 属性时有什么问题</h3><h4 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h4><ol>
+<li><p>delete 删除不存在的属性 返回 true</p>
+</li>
+<li><p>无法删除原型上的属性。</p>
+<ol>
+<li><p>代码如下</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123; <span class="attr">name</span>: <span class="string">&#x27;Jessica&#x27;</span> &#125;</span><br><span class="line">obj.<span class="property">__proto__</span> = &#123; <span class="attr">age</span>: <span class="number">18</span> &#125;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(obj.<span class="property">age</span>) <span class="comment">// 18</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="keyword">delete</span> obj.<span class="property">age</span>) <span class="comment">// true</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(obj.<span class="property">age</span>) <span class="comment">// 18</span></span><br></pre></td></tr></table></figure>
+
+<p>更好的写法如下，不直接用<strong>proto</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">Obj</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">name</span> = <span class="string">&#x27;Jessica&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="title class_">Obj</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">age</span> = <span class="number">18</span></span><br><span class="line"><span class="keyword">var</span> obj = <span class="keyword">new</span> <span class="title class_">Obj</span>()</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(obj.<span class="property">age</span>) <span class="comment">// 18</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="keyword">delete</span> obj.<span class="property">age</span>) <span class="comment">// true</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(obj.<span class="property">age</span>) <span class="comment">// 18</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+</li>
+<li><p>delete 不能删除一个变量。</p>
+</li>
+<li><p>delete 删除数组的某一项，数组的程度还是不办，只是那项变成了&lt;1 empty item&gt;</p>
+</li>
+<li><p>数据属性 configurable: false 的属性，不能 delete</p>
+</li>
+</ol>
+<h4 id="JS-删除对象属性有两个-API"><a href="#JS-删除对象属性有两个-API" class="headerlink" title="JS 删除对象属性有两个 API"></a>JS 删除对象属性有两个 API</h4><ol>
+<li>delete 运算符</li>
+<li>Reflect.deleteProperty(target, propertyKey)<ol>
+<li>其中 propertyKey 需要字符串</li>
+<li>Reflect 是一个内置的对象，它提供拦截 JavaScript 操作的方法</li>
+</ol>
+</li>
+</ol>
+<h2 id="JS-Set-与-WeakSet"><a href="#JS-Set-与-WeakSet" class="headerlink" title="JS Set 与 WeakSet"></a>JS Set 与 WeakSet</h2><h3 id="Set"><a href="#Set" class="headerlink" title="Set"></a>Set</h3><ol>
+<li>成员不能重复</li>
+<li>只有键值，没有键名，有点类似数组</li>
+<li>可以遍历，方法有 add、delete、has</li>
+</ol>
+<h3 id="WeakSet"><a href="#WeakSet" class="headerlink" title="WeakSet"></a>WeakSet</h3><ol>
+<li>成员都是对象（引用）</li>
+<li>成员都是弱引用，随时可以消失（不计入垃圾回收机制）。可以用来保存 DOM 节点，不容易造成内存泄漏</li>
+<li>不能遍历，方法哟欧 add、delete、has</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/08/07/JS_map%E4%B8%8Eweakmap/" data-id="cll3k5rdc0006q2q0cxch7w9o" data-title="JS_map、weakmap与object" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2020/08/07/JS_%E9%98%B2%E6%8A%96%E4%B8%8E%E8%8A%82%E6%B5%81/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">JS柯里化</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/JavaScript/" style="font-size: 10px;">JavaScript</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/08/07/JS_map%E4%B8%8Eweakmap/">JS_map、weakmap与object</a>
+          </li>
+        
+          <li>
+            <a href="/2020/08/07/JS_%E9%98%B2%E6%8A%96%E4%B8%8E%E8%8A%82%E6%B5%81/">JS柯里化</a>
+          </li>
+        
+          <li>
+            <a href="/2020/08/07/JS_%E6%9F%AF%E9%87%8C%E5%8C%96/">JS柯里化</a>
+          </li>
+        
+          <li>
+            <a href="/2020/08/07/JS_%E9%97%AD%E5%8C%85/">JS闭包</a>
+          </li>
+        
+          <li>
+            <a href="/2020/01/01/hello-world/">Hello World</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2023 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
