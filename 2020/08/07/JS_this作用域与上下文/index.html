@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>JS_map与forEach区别 | 前端小泷包</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="函数提升与变量提升的优先级 变量名和函数都提升，但函数优先级高于变量。（let const 都不存在变量提升）  如果函数与变量同名，那么只要在变量赋值前打印的都会是函数，在变量赋值之后打印都是变量的值  只有函数声明才会提升，函数表达式不会提升  代码实例如下 12345678910111213141516console.log(a) &#x2F;&#x2F; [Function: a]a();  &#x2F;&#x2F; 5var">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JS_map与forEach区别">
+<meta property="og:url" content="http://example.com/2020/08/07/JS_this%E4%BD%9C%E7%94%A8%E5%9F%9F%E4%B8%8E%E4%B8%8A%E4%B8%8B%E6%96%87/index.html">
+<meta property="og:site_name" content="前端小泷包">
+<meta property="og:description" content="函数提升与变量提升的优先级 变量名和函数都提升，但函数优先级高于变量。（let const 都不存在变量提升）  如果函数与变量同名，那么只要在变量赋值前打印的都会是函数，在变量赋值之后打印都是变量的值  只有函数声明才会提升，函数表达式不会提升  代码实例如下 12345678910111213141516console.log(a) &#x2F;&#x2F; [Function: a]a();  &#x2F;&#x2F; 5var">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-08-07T08:00:00.000Z">
+<meta property="article:modified_time" content="2023-08-11T15:28:26.050Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="JavaScript">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="前端小泷包" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">前端小泷包</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-JS_this作用域与上下文" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/08/07/JS_this%E4%BD%9C%E7%94%A8%E5%9F%9F%E4%B8%8E%E4%B8%8A%E4%B8%8B%E6%96%87/" class="article-date">
+  <time class="dt-published" datetime="2020-08-07T08:00:00.000Z" itemprop="datePublished">2020-08-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      JS_map与forEach区别
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="函数提升与变量提升的优先级"><a href="#函数提升与变量提升的优先级" class="headerlink" title="函数提升与变量提升的优先级"></a>函数提升与变量提升的优先级</h2><ol>
+<li><p>变量名和函数都提升，但函数优先级高于变量。（let const 都不存在变量提升）</p>
+</li>
+<li><p>如果函数与变量同名，那么只要在变量赋值前打印的都会是函数，在变量赋值之后打印都是变量的值</p>
+</li>
+<li><p>只有函数声明才会提升，函数表达式不会提升</p>
+</li>
+<li><p>代码实例如下</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(a) <span class="comment">// [Function: a]</span></span><br><span class="line"><span class="title function_">a</span>();  <span class="comment">// 5</span></span><br><span class="line"><span class="keyword">var</span> a = <span class="number">4</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(a) <span class="comment">//4</span></span><br><span class="line">a = <span class="keyword">function</span> (<span class="params"></span>) &#123;  <span class="comment">// 看成是一个函数赋值给变量a</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="number">1</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(a) <span class="comment">// // [Function: a]</span></span><br><span class="line"><span class="title function_">a</span>(); <span class="comment">// 1</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">a</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="number">2</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">a</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="number">5</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="title function_">a</span>(); <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
+
+<p>但其实会是这样执行</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">a</span>(<span class="params"></span>) &#123; <span class="comment">// 函数提升</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="number">2</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">a</span>(<span class="params"></span>) &#123; <span class="comment">// 函数提升 且 后声明的覆盖先声明的</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="number">5</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> a <span class="comment">//  变量提升</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(a) <span class="comment">// [Function: a] // a只是声明没有赋值所以不会覆盖函数a</span></span><br><span class="line"><span class="title function_">a</span>();  <span class="comment">// 5</span></span><br><span class="line">a = <span class="number">4</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(a) <span class="comment">// 4 // 变量a赋值了</span></span><br><span class="line">a = <span class="keyword">function</span> (<span class="params"></span>) &#123;  <span class="comment">// 看成是一个函数赋值给变量a</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="number">1</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(a) <span class="comment">// [Function: a]</span></span><br><span class="line"><span class="title function_">a</span>(); <span class="comment">// 1</span></span><br><span class="line"><span class="title function_">a</span>(); <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>let var function</p>
+<ol>
+<li><p>let 的「创建」过程被提升了，但是初始化没有提升。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> b = <span class="string">&#x27;js&#x27;</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(b)</span><br><span class="line"><span class="comment">// Uncaught ReferenceError: Cannot access &#x27;b&#x27; before initialization</span></span><br><span class="line"><span class="keyword">let</span> b = <span class="string">&#x27;css&#x27;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>var 的「创建」和「初始化」都被提升了，赋值 undefined</p>
+</li>
+<li><p>function 的「创建」「初始化」和「赋值」都被提升了</p>
+</li>
+</ol>
+</li>
+</ol>
+<h2 id="作用域链"><a href="#作用域链" class="headerlink" title="作用域链"></a>作用域链</h2><ol>
+<li><p>儿子能用爸爸的东西</p>
+</li>
+<li><p>块级作用域</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">    <span class="keyword">let</span> e = <span class="number">111</span>;</span><br><span class="line">    <span class="keyword">var</span> f = <span class="number">222</span>;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(e, f);</span><br><span class="line">&#125;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;f&#x27;</span>, f); <span class="comment">// f 222</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;e&#x27;</span>, e); <span class="comment">// ReferenceError: e is not defined</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="this"><a href="#this" class="headerlink" title="this"></a>this</h2><p>this 是在执行时动态读取上下文决定的，而不是创建时</p>
+<ol>
+<li><p>函数直接调用，this 指向的是 window &#x3D;&gt; 函数表达式、匿名函数、嵌套函数</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">foo</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;函数内部的this&#x27;</span>, <span class="variable language_">this</span>); <span class="comment">// window</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="title function_">foo</span>()</span><br></pre></td></tr></table></figure>
+
+<p>1.1 在默认情况(非严格模式下,未使用 ‘use strict’),没找到直接调用者,则 this 指的是 window。<br>1.2 在严格模式下,没有直接调用者的函数中的 this 是 undefined 在严格模式下,没有直接调用者的函数中的 this 是 undefined。</p>
+</li>
+<li><p>隐式绑定 - this 指向的是调用的上一级 &#x3D;&gt; 对象、数组等引用关系逻辑之上</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">fn</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;隐式绑定&#x27;</span>, <span class="variable language_">this</span>.<span class="property">a</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> obj = &#123;</span><br><span class="line">    <span class="attr">a</span>: <span class="number">1</span>,</span><br><span class="line">    fn</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">obj.<span class="property">fn</span> = fn;</span><br><span class="line">obj.<span class="title function_">fn</span>(); <span class="comment">// 隐式绑定 1</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>例子</p>
+<p>取出了函数，函数直接调用</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">foo = &#123;</span><br><span class="line">    <span class="attr">bar</span>: <span class="number">100</span>,</span><br><span class="line">    <span class="attr">fn</span>: <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>.<span class="property">bar</span>); <span class="comment">// undefined</span></span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>); <span class="comment">// window</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 取出</span></span><br><span class="line">fn1 = foo.<span class="property">fn</span></span><br><span class="line"><span class="comment">// 执行</span></span><br><span class="line"><span class="title function_">fn1</span>();</span><br></pre></td></tr></table></figure>
+
+<p>同理下图 因为 o3 是直接取出 o1，所以 this 指向 window<br>但是 o2 是直接调用了 o1，所以打印出来 this 也是指向 o1</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> o1 = &#123;</span><br><span class="line">    <span class="attr">text</span>: <span class="string">&#x27;o1&#x27;</span>,</span><br><span class="line">    <span class="attr">fn</span>: <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">        <span class="comment">// 直接使用上下文 - 领导直接分活</span></span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;o1fn_this&#x27;</span>, <span class="variable language_">this</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">text</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> o2 = &#123;</span><br><span class="line">    <span class="attr">text</span>: <span class="string">&#x27;o2&#x27;</span>,</span><br><span class="line">    <span class="attr">fn</span>: <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">        <span class="comment">// 呼叫了隔壁组leader协助执行 - 部门协作</span></span><br><span class="line">        <span class="keyword">return</span> o1.<span class="title function_">fn</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> o3 = &#123;</span><br><span class="line">    <span class="attr">text</span>: <span class="string">&#x27;o3&#x27;</span>,</span><br><span class="line">    <span class="attr">fn</span>: <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">        <span class="comment">// 直接内部构造 - 接口人制度</span></span><br><span class="line">        <span class="keyword">let</span> fn = o1.<span class="property">fn</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="title function_">fn</span>(); <span class="comment">// 最终执行</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;o1fn&#x27;</span>, o1.<span class="title function_">fn</span>()); <span class="comment">// o1</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;o2fn&#x27;</span>, o2.<span class="title function_">fn</span>()); <span class="comment">// o1</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;o3fn&#x27;</span>, o3.<span class="title function_">fn</span>()); <span class="comment">// undefined 因为this指向window</span></span><br></pre></td></tr></table></figure>
+
+<p>可以用 bind、apply、call 改变 this</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> o1 = &#123;</span><br><span class="line">    <span class="attr">text</span>: <span class="string">&#x27;o1&#x27;</span>,</span><br><span class="line">    <span class="attr">fn</span>: <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">        <span class="comment">// 直接使用上下文 - 领导直接分活</span></span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;o1fn_this&#x27;</span>, <span class="variable language_">this</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">text</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> o2 = &#123;</span><br><span class="line">    <span class="attr">text</span>: <span class="string">&#x27;o2&#x27;</span>,</span><br><span class="line">    <span class="attr">fn</span>: <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">        <span class="comment">// 呼叫了隔壁组leader协助执行 - 部门协作</span></span><br><span class="line">        <span class="keyword">return</span> o1.<span class="title function_">fn</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(o1.<span class="property">fn</span>.<span class="title function_">call</span>(o2)) <span class="comment">//o2</span></span><br></pre></td></tr></table></figure>
+
+<p>也可以直接赋值</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> o1 = &#123;</span><br><span class="line">    <span class="attr">text</span>: <span class="string">&#x27;o1&#x27;</span>,</span><br><span class="line">    <span class="attr">fn</span>: <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">        <span class="comment">// 直接使用上下文 - 领导直接分活</span></span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;o1fn_this&#x27;</span>, <span class="variable language_">this</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">text</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> o2 = &#123;</span><br><span class="line">    <span class="attr">text</span>: <span class="string">&#x27;o2&#x27;</span>,</span><br><span class="line">    <span class="attr">fn</span>: o1.<span class="property">fn</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;o2fn&#x27;</span>, o2.<span class="title function_">fn</span>()); <span class="comment">//o2</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>new - this 指向是 new 之后得到的实例</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Course</span> &#123;</span><br><span class="line">    <span class="title function_">constructor</span>(<span class="params">name</span>) &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">name</span> = name;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;构造函数中的this:&#x27;</span>, <span class="variable language_">this</span>); <span class="comment">// Jessica</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="title function_">test</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;类方法中的this&#x27;</span>, <span class="variable language_">this</span>); <span class="comment">// Jessica</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> course = <span class="keyword">new</span> <span class="title class_">Course</span>(<span class="string">&#x27;Jessica&#x27;</span>);</span><br><span class="line">course.<span class="title function_">test</span>();</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>执行 setTimeout 时，匿名方法执行上下文，在队列中和全局执行函数效果相同 - 指向 window。但是可以在 setTimeout 使用箭头函数，这样 this 指向的宿主对象是 Jessica。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Course</span> &#123;</span><br><span class="line">    <span class="title function_">constructor</span>(<span class="params">name</span>) &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">name</span> = name;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;构造函数中的this:&#x27;</span>, <span class="variable language_">this</span>); <span class="comment">//Jessica</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="title function_">test</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;类方法中的this&#x27;</span>, <span class="variable language_">this</span>); <span class="comment">//Jessica</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="title function_">asyncTest</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;异步方法外：&#x27;</span>, <span class="variable language_">this</span>); <span class="comment">//Jessica</span></span><br><span class="line">        <span class="built_in">setTimeout</span>(<span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;异步方法内&#x27;</span>, <span class="variable language_">this</span>); <span class="comment">// window</span></span><br><span class="line">        &#125;, <span class="number">500</span>)</span><br><span class="line">        <span class="comment">// setTimeout(() =&gt; &#123;</span></span><br><span class="line">            <span class="comment">// console.log(&#x27;异步方法内&#x27;, this); // Jessica</span></span><br><span class="line">        <span class="comment">// &#125;, 500)</span></span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">Promise</span>(<span class="keyword">function</span> (<span class="params">resolve, reject</span>) &#123;</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;异步方法内2&#x27;</span>, <span class="variable language_">this</span>) <span class="comment">// undefined</span></span><br><span class="line">        &#125;).<span class="title function_">then</span>(</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;异步方法内3&#x27;</span>, <span class="variable language_">this</span>) <span class="comment">//Jessica</span></span><br><span class="line">        )</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> course = <span class="keyword">new</span> <span class="title class_">Course</span>(<span class="string">&#x27;Jessica&#x27;</span>);</span><br><span class="line">course.<span class="title function_">test</span>();</span><br><span class="line">course.<span class="title function_">asyncTest</span>();</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="箭头函数和普通函数"><a href="#箭头函数和普通函数" class="headerlink" title="箭头函数和普通函数"></a>箭头函数和普通函数</h2><h3 id="箭头函数的-this"><a href="#箭头函数的-this" class="headerlink" title="箭头函数的 this"></a>箭头函数的 this</h3><ol>
+<li><p>箭头函数没有自己的 this，它的 this 是继承而来，默认指向在定义它时所处的对象(宿主对象)。注意是定义时的，不是执行时的对象。定义它时所处的对象是父级作用域，即父级普通函数的 this。由于箭头函数根本没有自己的 this，导致内部的 this 就是外层代码块的 this。</p>
+</li>
+<li><p>例子</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> s = <span class="number">21</span>;</span><br><span class="line"><span class="keyword">const</span> obj = &#123;</span><br><span class="line">    <span class="attr">s</span>: <span class="number">42</span>,</span><br><span class="line">    <span class="attr">m</span>: <span class="function">() =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>.<span class="property">s</span>),</span><br><span class="line">    <span class="attr">k</span>: <span class="keyword">function</span> (<span class="params"></span>) &#123; <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>.<span class="property">s</span>) &#125;</span><br><span class="line">&#125;;</span><br><span class="line">obj.<span class="title function_">m</span>() <span class="comment">// 21 // 定义时所处的对象，即它的父级作用域</span></span><br><span class="line">obj.<span class="title function_">k</span>() <span class="comment">// 42 // 普通函数，指向它的直接调用者</span></span><br></pre></td></tr></table></figure>
+
+<p>例子 2:<br>test 是普通函数用作构造函数，new 调用后，this 指向所创建的实例对象。箭头函数此时被声明定义，指向外层的 this 为 Jessica2.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> name = <span class="string">&quot;Jessica1&quot;</span>;</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">test</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">name</span> = <span class="string">&quot;Jessica2&quot;</span>;</span><br><span class="line">    <span class="keyword">let</span> <span class="title function_">func</span> = (<span class="params"></span>) =&gt; &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>.<span class="property">name</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="title function_">func</span>();</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> en = <span class="keyword">new</span> <span class="title function_">test</span>(); <span class="comment">// Jessica2</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>箭头函数继承来的 this 指向永远不会改变，call()、apply()、bind()等方法不能改变箭头函数中 this 的指向</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> id = <span class="string">&#x27;Global&#x27;</span>;</span><br><span class="line"><span class="keyword">let</span> <span class="title function_">fun1</span> = (<span class="params"></span>) =&gt; &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>.<span class="property">id</span>)</span><br><span class="line">&#125;;</span><br><span class="line"><span class="title function_">fun1</span>();                     <span class="comment">// &#x27;Global&#x27;</span></span><br><span class="line">fun1.<span class="title function_">call</span>(&#123; <span class="attr">id</span>: <span class="string">&#x27;Jessica&#x27;</span> &#125;);     <span class="comment">// &#x27;Global&#x27;</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="箭头函数和普通函数区别"><a href="#箭头函数和普通函数区别" class="headerlink" title="箭头函数和普通函数区别"></a>箭头函数和普通函数区别</h3><ol>
+<li><p>箭头函数中 this 的指向不同<br>1.1 在普通函数中，this 总是指向调用它的对象，如果用作构造函数，它指向创建的对象实例<br>1.2 箭头函数自身没有 this，它的 this 是继承而来，默认指向在定义它时所处的对象</p>
+</li>
+<li><p>箭头函数不能作为构造函数使用<br>由于箭头函数时没有自己的 this，且 this 指向外层的执行环境，且不能改变指向，所以不能当做构造函数使用。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">Person</span>(<span class="params">name</span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">name</span> = name;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> p= <span class="keyword">new</span> <span class="title class_">Person</span>(<span class="string">&quot;Jessica&quot;</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(p.<span class="property">name</span>); <span class="comment">// Jessica</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>箭头函数没有自己的 arguments<br>3.1 每一个普通函数调用后都具有一个 arguments 对象，用来存储实际传递的参数。<br>3.2 箭头函数没有自己的 arguments 对象，取而代之用 rest 参数…解决。在箭头函数中访问 arguments 实际上获得的是它外层函数的 arguments 值。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">A</span>(<span class="params">a</span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">arguments</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="title function_">A</span>(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>);  <span class="comment">//  [1, 2, 3, callee: ƒ, Symbol(Symbol.iterator): ƒ]</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> <span class="title function_">B</span> = (<span class="params">b</span>) =&gt; &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">arguments</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="title function_">B</span>(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>);   <span class="comment">// Uncaught ReferenceError: arguments is not defined</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> <span class="title function_">C</span> = (<span class="params">...c</span>) =&gt; &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(c);</span><br><span class="line">&#125;</span><br><span class="line"><span class="title function_">C</span>(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>);  <span class="comment">// [1, 2, 3]</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>箭头函数不具有 prototype 原型对象。<br>箭头函数不具有 super，箭头函数不具有 new.target<br>箭头函数不能 Generator 函数，不能使用 yeild 关键字。</p>
+</li>
+<li><p>箭头函数全都是匿名函数，普通函数可以有匿名函数，也可以有具名函数</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 具名函数</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">func</span>(<span class="params"></span>) &#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 匿名函数</span></span><br><span class="line"><span class="keyword">let</span> func = <span class="keyword">function</span> (<span class="params"></span>) &#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 箭头函数全都是匿名函数</span></span><br><span class="line"><span class="keyword">let</span> <span class="title function_">func</span> = (<span class="params"></span>) =&gt; &#123;&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ol>
+<li>函数提升与变量提升的优先级<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/ksjdbdh/article/details/120815118">https://blog.csdn.net/ksjdbdh/article/details/120815118</a></li>
+<li>let 存在变量提升么？<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/xing_zlear/article/details/92784692">https://blog.csdn.net/xing_zlear/article/details/92784692</a></li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/08/07/JS_this%E4%BD%9C%E7%94%A8%E5%9F%9F%E4%B8%8E%E4%B8%8A%E4%B8%8B%E6%96%87/" data-id="cll6wsqwm0002ehq0asa0b4f8" data-title="JS_map与forEach区别" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/08/07/JS_map%E4%B8%8EforEach%E5%8C%BA%E5%88%AB/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          JS_map与forEach区别
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/08/07/JS_%E6%95%B0%E7%BB%84%E5%8E%BB%E9%87%8D/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">JS_数组去重</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/JavaScript/" style="font-size: 10px;">JavaScript</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/08/07/JS_map%E4%B8%8Eweakmap/">JS_map、weakmap与object</a>
+          </li>
+        
+          <li>
+            <a href="/2020/08/07/JS_%E9%98%B2%E6%8A%96%E4%B8%8E%E8%8A%82%E6%B5%81/">JS柯里化</a>
+          </li>
+        
+          <li>
+            <a href="/2020/08/07/JS_map%E4%B8%8EforEach%E5%8C%BA%E5%88%AB/">JS_map与forEach区别</a>
+          </li>
+        
+          <li>
+            <a href="/2020/08/07/JS_this%E4%BD%9C%E7%94%A8%E5%9F%9F%E4%B8%8E%E4%B8%8A%E4%B8%8B%E6%96%87/">JS_map与forEach区别</a>
+          </li>
+        
+          <li>
+            <a href="/2020/08/07/JS_%E6%95%B0%E7%BB%84%E5%8E%BB%E9%87%8D/">JS_数组去重</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2023 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
