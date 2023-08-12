@@ -409,7 +409,7 @@
 <li>宿主（node 或浏览器）发起的任务是宏观任务，JS 引擎发起的任务为微观任务。微观任务队列组成宏观任务</li>
 <li>JS 引擎常驻于内存，宿主把 JS 代码传给 JS 引擎去指向。宿主还会传 setTimeout 等 API 给 JS 引擎</li>
 <li>Promise 使得 JS 引擎自身发起任务，而不是宿主浏览器发起。</li>
-<li>异步执行顺序，确定单个宏任务的微任务执行顺序，再确定宏任务的执行顺序，最后整个顺序<br><img src="/./pic/js/eventloop.jpg" alt="节点"></li>
+<li>异步执行顺序，确定单个宏任务的微任务执行顺序，再确定宏任务的执行顺序，最后整个顺序<br><img src="/../_pic/js/eventloop.jpg" alt="节点"></li>
 </ol>
 <h3 id="浏览器的-eventloop"><a href="#浏览器的-eventloop" class="headerlink" title="浏览器的 eventloop"></a>浏览器的 eventloop</h3><p>（1）JS 的任务分为同步和异步。</p>
 <ul>
@@ -419,10 +419,8 @@
 <li>任务队列：数据结构中的队列结构，遵循先进先出的原则，主要负责将新的任务发送到队列中进行处理。</li>
 </ul>
 </li>
+<li>Tips<br>在事件驱动的模式下，至少包含了一个执行循环来检测任务队列中是否有新任务。通过不断循环，去取出异步任务的回调来执行，这个过程就是事件循环，每一次循环就是一个事件周期。</li>
 </ul>
-<blockquote>
-<p>在事件驱动的模式下，至少包含了一个执行循环来检测任务队列中是否有新任务。通过不断循环，去取出异步任务的回调来执行，这个过程就是事件循环，每一次循环就是一个事件周期。</p>
-</blockquote>
 <p>（2） 任务队列根据任务种类的不同，可以分为宏任务与微任务。</p>
 <ul>
 <li><p>宏任务：scirpt 整体代码、setTimeout、setInterval、I&#x2F;O、setImmediate</p>
