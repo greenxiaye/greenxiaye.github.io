@@ -71,6 +71,34 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-JS_数组扁平" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/08/12/JS_%E6%95%B0%E7%BB%84%E6%89%81%E5%B9%B3/" class="article-date">
+  <time class="dt-published" datetime="2023-08-12T07:41:58.801Z" itemprop="datePublished">2023-08-12</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/08/12/JS_%E6%95%B0%E7%BB%84%E6%89%81%E5%B9%B3/" data-id="cll7pljvs0001u9q09u817cvr" data-title="" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-JS_map与weakmap" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2020/08/07/JS_map%E4%B8%8Eweakmap/" class="article-date">
@@ -119,6 +147,12 @@
 </ol>
 </li>
 </ol>
+<h3 id="总结-WeakMap-和-Map-的区别"><a href="#总结-WeakMap-和-Map-的区别" class="headerlink" title="总结 WeakMap 和 Map 的区别"></a>总结 WeakMap 和 Map 的区别</h3><ul>
+<li>键的范围：Map 的键可以是任何类型的对象，支持设置为基本类型，而 WeakMap 的键只能是对象。</li>
+<li>键的保留：Map 的键会被保留，是强引用的对象，如果我们要拷贝的对象非常庞大时，使用 Map 会对内存造成非常大的额外消耗，而且我们需要手动清除 Map 的属性才能释放这块内存。WeakMap 的键则不同，如果没有其他引用指向它们，它们将被垃圾回收器自动回收，WeakMap 不会占用额外的内存空间。</li>
+<li>值的类型：Map 的值可以是任何类型的对象，而 WeakMap 的值只能是对象或 null。</li>
+<li>遍历方式：Map 可以被遍历，可以使用 for in 循环来遍历所有键和值。而 WeakMap 不能被遍历。</li>
+</ul>
 <h2 id="JS-Map-与-Object"><a href="#JS-Map-与-Object" class="headerlink" title="JS Map 与 Object"></a>JS Map 与 Object</h2><h3 id="Map-与-Object-比较"><a href="#Map-与-Object-比较" class="headerlink" title="Map 与 Object 比较"></a>Map 与 Object 比较</h3><ol>
 <li><p>Object 只能使用字符串、数字、Symbol 作为 key，但 Map 可以任何数据类型作为 key</p>
 </li>
@@ -199,6 +233,143 @@
     </div>
     <footer class="article-footer">
       <a data-url="http://example.com/2020/08/07/JS_map%E4%B8%8Eweakmap/" data-id="cll3k5rdc0006q2q0cxch7w9o" data-title="JS_map、weakmap与object" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-JS_手写深拷贝" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/08/07/JS_%E6%89%8B%E5%86%99%E6%B7%B1%E6%8B%B7%E8%B4%9D/" class="article-date">
+  <time class="dt-published" datetime="2020-08-07T09:00:00.000Z" itemprop="datePublished">2020-08-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2020/08/07/JS_%E6%89%8B%E5%86%99%E6%B7%B1%E6%8B%B7%E8%B4%9D/">JS_手写深拷贝</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="JS-深浅拷贝"><a href="#JS-深浅拷贝" class="headerlink" title="JS 深浅拷贝"></a>JS 深浅拷贝</h2><h3 id="原始数据类型和引用数据类型"><a href="#原始数据类型和引用数据类型" class="headerlink" title="原始数据类型和引用数据类型"></a>原始数据类型和引用数据类型</h3><p>js 的数据类型划分方式为 原始数据类型（基础数据类型）和 引用数据类型</p>
+<ul>
+<li>原始数据类型：Boolean、Number、String、Symbol、BigInt、Undefined、Null</li>
+<li>引用数据类型：Object、Array、Function、Date</li>
+</ul>
+<p>原始数据类型和引用数据类型的区别</p>
+<ol>
+<li><p>存储位置不同</p>
+<ul>
+<li>原始数据类型：存放在栈中，占据空间小、大小固定。</li>
+<li>引用数据类型：存放在堆中，因为占用空间大，大小不固定。</li>
+</ul>
+</li>
+<li><p>传值方式不同</p>
+<ul>
+<li><p>原始数据类型：按值传递。当使用一个原始类型的值时，实际上是在直接访问这个存储在栈中的值。</p>
+<ul>
+<li><p>不可变(immutable)</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> str = <span class="string">&quot;abc&quot;</span>;</span><br><span class="line">str[<span class="number">0</span>] = <span class="string">&quot;d&quot;</span>;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(str); <span class="comment">//abc</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>方法操作无法改变一个基本类型的值</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> person = <span class="string">&#x27;Jessica&#x27;</span>;</span><br><span class="line">person.<span class="property">age</span> = <span class="number">88</span>;</span><br><span class="line">person.<span class="property">method</span> = <span class="keyword">function</span> (<span class="params"></span>) &#123; &#125;;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(person.<span class="property">age</span>); <span class="comment">// undefined</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(person.<span class="property">method</span>); <span class="comment">// undefined</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>引用数据类型：按引用传递。当使用一个引用类型的值时，引用数据会在栈中存放指向它的指针及内存地址，通过这个地址去堆中寻找对应的内容。</p>
+<ul>
+<li><p>引用类型的值是可变的</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123; <span class="attr">x</span>: <span class="number">0</span> &#125;;</span><br><span class="line">obj.<span class="property">x</span> = <span class="number">100</span>;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(obj);</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>两种数据类型在实参和形参中的区别</p>
+<ul>
+<li><p>原始数据类型</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">test</span>(<span class="params">param</span>) &#123;</span><br><span class="line">    param += <span class="number">10</span>;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(param); <span class="comment">// 20</span></span><br><span class="line">    <span class="keyword">return</span> param;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> num = <span class="number">10</span>;</span><br><span class="line"><span class="keyword">let</span> ans = <span class="title function_">test</span>(num);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(num, ans); <span class="comment">// 10 20</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>引用数据类型。在方法体内改变形参，将同时改变实参</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">test</span>(<span class="params">param</span>) &#123;</span><br><span class="line">    param[<span class="number">0</span>] = <span class="number">20</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(param); <span class="comment">// [ 20 ]</span></span><br><span class="line">    <span class="keyword">return</span> param;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> num = [<span class="number">10</span>]</span><br><span class="line"><span class="keyword">let</span> ans = <span class="title function_">test</span>(num);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(num, ans); <span class="comment">// [ 20 ] [ 20 ]</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ol>
+<h3 id="浅拷贝与深拷贝"><a href="#浅拷贝与深拷贝" class="headerlink" title="浅拷贝与深拷贝"></a>浅拷贝与深拷贝</h3><h4 id="浅拷贝"><a href="#浅拷贝" class="headerlink" title="浅拷贝"></a>浅拷贝</h4><ul>
+<li><p>浅拷贝</p>
+<ul>
+<li><p>如果属性是基本类型，拷贝的就是基本类型的值。</p>
+</li>
+<li><p>如果属性是引用类型，拷贝的是内存地址。这意味着，如果修改了引用数据的属性，那么浅拷贝的新对象也会受到影响，因为它们共享同一内存空间。</p>
+<ul>
+<li><p>Object 浅拷贝</p>
+<ol>
+<li><p>Object.assign：用于对象的合并，将原对象(source)的所有可枚举属性，复制到目标对象(target)。<br>如果源对象某个属性的值是对象，那么目标对象拷贝得到的是这个对象的引用.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> obj1 = &#123; <span class="attr">a</span>: &#123; <span class="attr">b</span>: <span class="number">1</span> &#125; &#125;;</span><br><span class="line"><span class="keyword">const</span> obj2 = <span class="title class_">Object</span>.<span class="title function_">assign</span>(&#123;&#125;, obj1);</span><br><span class="line">obj1.<span class="property">a</span>.<span class="property">b</span> = <span class="number">2</span>;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(obj2.<span class="property">a</span>.<span class="property">b</span>) <span class="comment">// 2</span></span><br><span class="line">obj1.<span class="property">a</span> = &#123; <span class="attr">b</span>: <span class="number">4</span> &#125; <span class="comment">// 第一层不受影响</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(obj2) <span class="comment">// &#123; a: &#123; b: 2 &#125; &#125;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>拓展运算符：它和 Object.assign 类似</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> obj1 = &#123; <span class="attr">a</span>: &#123; <span class="attr">b</span>: <span class="number">1</span> &#125; &#125;;</span><br><span class="line"><span class="keyword">const</span> obj2 = &#123; ...obj1 &#125;;</span><br><span class="line">obj1.<span class="property">a</span>.<span class="property">b</span> = <span class="number">2</span>;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(obj2.<span class="property">a</span>.<span class="property">b</span>) <span class="comment">// 2</span></span><br><span class="line">obj1.<span class="property">a</span> = &#123; <span class="attr">b</span>: <span class="number">4</span> &#125; <span class="comment">// 第一层不受影响</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(obj2) <span class="comment">// &#123; a: &#123; b: 2 &#125; &#125;</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+</li>
+<li><p>Array 浅拷贝</p>
+<ol>
+<li><p>Array.property.concat()</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> arr1 = [<span class="number">0</span>, <span class="number">1</span>, &#123; <span class="attr">a</span>: &#123; <span class="attr">b</span>: <span class="number">1</span> &#125; &#125;];</span><br><span class="line"><span class="keyword">let</span> arr2 = arr1.<span class="title function_">concat</span>([]);</span><br><span class="line">arr1[<span class="number">2</span>].<span class="property">a</span>.<span class="property">b</span> = <span class="number">2</span>;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(arr2[<span class="number">2</span>].<span class="property">a</span>.<span class="property">b</span>) <span class="comment">// 2</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Array.property.slice()</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> arr1 = [<span class="number">0</span>, <span class="number">1</span>, &#123; <span class="attr">a</span>: &#123; <span class="attr">b</span>: <span class="number">1</span> &#125; &#125;];</span><br><span class="line"><span class="keyword">let</span> arr2 = arr1.<span class="title function_">slice</span>();</span><br><span class="line">arr1[<span class="number">2</span>].<span class="property">a</span>.<span class="property">b</span> = <span class="number">2</span>;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(arr2[<span class="number">2</span>].<span class="property">a</span>.<span class="property">b</span>) <span class="comment">// 2</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="深拷贝"><a href="#深拷贝" class="headerlink" title="深拷贝"></a>深拷贝</h4><ul>
+<li><p>深拷贝： 深拷贝是将一个对象从内存中完整的拷贝一份出来，从堆内存中开辟一个新的区域存放新对象，修改新对象不会影响原对象，因为新旧对象不共享同一内存空间。</p>
+</li>
+<li><p>JSON.parse(JSON.stringify())</p>
+<ol>
+<li><p>其原理及为 JSON.stringify()将一个 JavaScript 对象转换为 JSON 字符串，使用 JSON.parse()将该 JSON 字符串解析为新的 JavaScript 对象，这个解析的过程会去开辟一个新的内容空间，即完成了深拷贝的过程。</p>
+</li>
+<li><p>JSON.stringify()在转换的过程中，如果对象中包含<code>函数、日期对象、正则表达式</code>等无法被转换为字符串的类型，那么这些属性将被忽略或丢失，因而这些场景下是不适用的。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> arr1 = [<span class="number">0</span>, <span class="number">1</span>, &#123; <span class="attr">a</span>: &#123; <span class="attr">b</span>: <span class="number">1</span> &#125; &#125;];</span><br><span class="line"><span class="keyword">let</span> arr2 = <span class="title class_">JSON</span>.<span class="title function_">parse</span>(<span class="title class_">JSON</span>.<span class="title function_">stringify</span>(arr1));</span><br><span class="line">arr1[<span class="number">2</span>].<span class="property">a</span>.<span class="property">b</span> = <span class="number">2</span>;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(arr2[<span class="number">2</span>].<span class="property">a</span>.<span class="property">b</span>) <span class="comment">// 1</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+</li>
+</ul>
+<h3 id="手写浅拷贝"><a href="#手写浅拷贝" class="headerlink" title="手写浅拷贝"></a>手写浅拷贝</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">checkedType</span>(<span class="params">target</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="title class_">Object</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">toString</span>.<span class="title function_">call</span>(target).<span class="title function_">slice</span>(<span class="number">8</span>, -<span class="number">1</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> <span class="title function_">_shallowClone</span> = target =&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> type = <span class="title function_">checkedType</span>(target)</span><br><span class="line">    <span class="keyword">let</span> cloneTarget = type === <span class="string">&quot;array&quot;</span> ? [] : &#123;&#125;;</span><br><span class="line">    <span class="keyword">if</span> (type === <span class="string">&quot;Array&quot;</span> || type === <span class="string">&quot;Object&quot;</span>) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">let</span> key <span class="keyword">in</span> target) &#123;</span><br><span class="line">            <span class="keyword">if</span> (target.<span class="title function_">hasOwnProperty</span>(key)) &#123;</span><br><span class="line">                cloneTarget[key] = target[key]</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> cloneTarget</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> target</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="手写深拷贝"><a href="#手写深拷贝" class="headerlink" title="手写深拷贝"></a>手写深拷贝</h3><p>深拷贝原理：遍历对象上的属性，若是对象或数组则递归复制，直到最终是基本数据类型。<br>使用 WeakMap</p>
+<ol>
+<li>检查 map 中有无已克隆过的对象，有直接返回</li>
+<li>没有，将当前对象作为 key，克隆对象作为 value 进行存储。</li>
+<li>继续克隆</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 测试用例</span></span><br><span class="line"><span class="keyword">const</span> obj = &#123;<span class="attr">a</span>: &#123;<span class="attr">b</span>: <span class="number">12</span>&#125;, <span class="attr">d</span>: [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]&#125;;</span><br><span class="line">obj.<span class="property">e</span> = obj; <span class="comment">// 循环引用</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">deepClone</span>(<span class="params">target, map = <span class="keyword">new</span> <span class="built_in">WeakMap</span>()</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (target === <span class="literal">null</span> || <span class="keyword">typeof</span> target !== <span class="string">&#x27;object&#x27;</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> target;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// Function|RegExp|Date|Map|Set</span></span><br><span class="line">    <span class="keyword">if</span> (target <span class="keyword">instanceof</span> <span class="title class_">Date</span>) <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Date</span>(target);</span><br><span class="line">    <span class="keyword">if</span> (target <span class="keyword">instanceof</span> <span class="title class_">RegExp</span>) <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">RegExp</span>(target);</span><br><span class="line">    <span class="keyword">let</span> cloneTarget = <span class="title class_">Array</span>.<span class="title function_">isArray</span>(target) ? [] : &#123;&#125;;</span><br><span class="line">    <span class="keyword">if</span> (map.<span class="title function_">get</span>(target)) <span class="keyword">return</span> map.<span class="title function_">get</span>(target);</span><br><span class="line">    map.<span class="title function_">set</span>(target, cloneTarget);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> key <span class="keyword">in</span> target) &#123;</span><br><span class="line">        <span class="keyword">if</span> (target.<span class="title function_">hasOwnProperty</span>(key)) &#123;</span><br><span class="line">            cloneTarget[key] = <span class="title function_">deepClone</span>(target[key], map);</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> cloneTarget;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">const</span> newObj = <span class="title function_">deepClone</span>(obj);</span><br><span class="line">obj.<span class="property">a</span>.<span class="property">b</span> = <span class="number">99999</span>;</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(obj); <span class="comment">// &#123; a: &#123; b: 99999 &#125;, d: [ 1, 2, 3 ], e: [Circular *1] &#125;</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(newObj); <span class="comment">// &#123; a: &#123; b: 12 &#125;, d: [ 1, 2, 3 ], e: [Circular *1] &#125;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ol>
+<li>JS 中的原始数据类型（基础数据类型）和 引用数据类型<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/HuangsTing/article/details/110166005">https://blog.csdn.net/HuangsTing/article/details/110166005</a></li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/08/07/JS_%E6%89%8B%E5%86%99%E6%B7%B1%E6%8B%B7%E8%B4%9D/" data-id="cll7pljvq0000u9q0abssasj4" data-title="JS_手写深拷贝" class="article-share-link">Share</a>
       
       
       
@@ -499,6 +670,90 @@
 
 
   
+    <article id="post-JS_手写bind和apply和call" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2020/08/07/JS_%E6%89%8B%E5%86%99bind%E5%92%8Capply%E5%92%8Ccall/" class="article-date">
+  <time class="dt-published" datetime="2020-08-07T08:00:00.000Z" itemprop="datePublished">2020-08-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2020/08/07/JS_%E6%89%8B%E5%86%99bind%E5%92%8Capply%E5%92%8Ccall/">JS_手写bind和apply和call</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="call"><a href="#call" class="headerlink" title="call"></a>call</h2><ol>
+<li>call 接受两个参数，第一个参数是 this 指向，第二个参数是函数接受的参数</li>
+<li>改变 this 指向后，原函数会立即执行</li>
+<li>此方法只是临时改变 this 指向一次</li>
+</ol>
+<h3 id="手写-call"><a href="#手写-call" class="headerlink" title="手写 call"></a>手写 call</h3><h4 id="call-简易核心版"><a href="#call-简易核心版" class="headerlink" title="call 简易核心版"></a>call 简易核心版</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Function</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">myCall</span> = <span class="keyword">function</span> (<span class="params">context, ...<span class="variable language_">arguments</span></span>) &#123;</span><br><span class="line">    context.<span class="property">fn</span> = <span class="variable language_">this</span></span><br><span class="line">    <span class="keyword">return</span> context.<span class="title function_">fn</span>(...<span class="variable language_">arguments</span>)</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">Person</span>(<span class="params">age</span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">age</span> = age;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>.<span class="property">name</span>, <span class="variable language_">this</span>.<span class="property">age</span>);</span><br><span class="line">&#125;;</span><br><span class="line"><span class="title class_">Person</span>.<span class="title function_">call</span>(&#123; <span class="attr">name</span>: <span class="string">&#x27;a&#x27;</span> &#125;, <span class="number">13</span>, <span class="string">&#x27;男&#x27;</span>); <span class="comment">// a 13</span></span><br><span class="line"><span class="title class_">Person</span>.<span class="title function_">myCall</span>(&#123; <span class="attr">name</span>: <span class="string">&#x27;b&#x27;</span> &#125;, <span class="number">18</span>, <span class="string">&#x27;女&#x27;</span>); <span class="comment">// b 18</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="call-好好写版"><a href="#call-好好写版" class="headerlink" title="call 好好写版"></a>call 好好写版</h4><p>如果第一个参数传的是 null 或者 undefind，这个时候函数中的 this 会指向 window，所以需要进行一下判断，讲 context 指向 window</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Function</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">myCall</span> = <span class="keyword">function</span> (<span class="params">context, ...<span class="variable language_">arguments</span></span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(...<span class="variable language_">arguments</span>, context);</span><br><span class="line">    <span class="comment">// ...arguments 为 18 &#x27;女&#x27;</span></span><br><span class="line">    <span class="comment">// context 为 &#123; name: &#x27;b&#x27; &#125;</span></span><br><span class="line">    <span class="comment">// 1. 参数检测</span></span><br><span class="line">    context = context || <span class="variable language_">window</span>;</span><br><span class="line">    <span class="comment">// 2. 临时挂载</span></span><br><span class="line">    context.<span class="property">fn</span> = <span class="variable language_">this</span></span><br><span class="line">    <span class="comment">// 3.立即执行</span></span><br><span class="line">    <span class="keyword">const</span> res = context.<span class="title function_">fn</span>(...<span class="variable language_">arguments</span>);</span><br><span class="line">    <span class="comment">// 4.销毁临时挂载</span></span><br><span class="line">    <span class="keyword">delete</span> context.<span class="property">fn</span>;</span><br><span class="line">    <span class="comment">// 5.返回函数调用的返回值</span></span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">Person</span>(<span class="params">age</span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">age</span> = age;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>.<span class="property">name</span>, <span class="variable language_">this</span>.<span class="property">age</span>);</span><br><span class="line">&#125;;</span><br><span class="line"><span class="title class_">Person</span>.<span class="title function_">call</span>(&#123; <span class="attr">name</span>: <span class="string">&#x27;a&#x27;</span> &#125;, <span class="number">13</span>, <span class="string">&#x27;男&#x27;</span>); <span class="comment">// a 13</span></span><br><span class="line"><span class="title class_">Person</span>.<span class="title function_">myCall</span>(&#123; <span class="attr">name</span>: <span class="string">&#x27;b&#x27;</span> &#125;, <span class="number">18</span>, <span class="string">&#x27;女&#x27;</span>); <span class="comment">// b 18</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="call-好好写版-独一无二的属性"><a href="#call-好好写版-独一无二的属性" class="headerlink" title="call 好好写版+独一无二的属性"></a>call 好好写版+独一无二的属性</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Function</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">myCall</span> = <span class="keyword">function</span> (<span class="params">context, ...<span class="variable language_">arguments</span></span>) &#123;</span><br><span class="line">    <span class="comment">// 1. 参数检测，给thisArgs做兜底处理，当它不存在时置为window</span></span><br><span class="line">    context = context || <span class="variable language_">window</span>;</span><br><span class="line">    <span class="comment">// 2. 挂载，给context新增一个独一无二的属性以免覆盖原有属性</span></span><br><span class="line">    <span class="keyword">let</span> key = <span class="title class_">Symbol</span>(<span class="string">&#x27;key&#x27;</span>);</span><br><span class="line">    context[key] = <span class="variable language_">this</span>;</span><br><span class="line">    <span class="comment">// 3.立即执行，通过隐式绑定的方式调用函数</span></span><br><span class="line">    <span class="keyword">const</span> res = context[key](...<span class="variable language_">arguments</span>);</span><br><span class="line">    <span class="comment">// 4.销毁挂载，删除添加的属性</span></span><br><span class="line">    <span class="keyword">delete</span> context[key];</span><br><span class="line">    <span class="comment">// 5.返回函数调用的返回值</span></span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">Person</span>(<span class="params">age</span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">age</span> = age;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>.<span class="property">name</span>, <span class="variable language_">this</span>.<span class="property">age</span>);</span><br><span class="line">&#125;;</span><br><span class="line"><span class="title class_">Person</span>.<span class="title function_">call</span>(&#123; <span class="attr">name</span>: <span class="string">&#x27;a&#x27;</span> &#125;, <span class="number">13</span>, <span class="string">&#x27;男&#x27;</span>); <span class="comment">// a 13</span></span><br><span class="line"><span class="title class_">Person</span>.<span class="title function_">myCall</span>(&#123; <span class="attr">name</span>: <span class="string">&#x27;b&#x27;</span> &#125;, <span class="number">18</span>, <span class="string">&#x27;女&#x27;</span>); <span class="comment">// b 18</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="apply"><a href="#apply" class="headerlink" title="apply"></a>apply</h2><ol>
+<li>apply 接受两个参数，第一个参数是 this 指向，第二个参数是函数接受的参数，以数组的形式传入</li>
+<li>改变 this 指向后，原函数会立即执行</li>
+<li>此方法只是临时改变 this 指向一次</li>
+</ol>
+<h3 id="手写-apply"><a href="#手写-apply" class="headerlink" title="手写 apply"></a>手写 apply</h3><p>注意，arguments 就是传进去的参数集合，通过 arguments[1]得到传进来的数组参数</p>
+<h4 id="apply-好好写版"><a href="#apply-好好写版" class="headerlink" title="apply 好好写版"></a>apply 好好写版</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Function</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">myApply</span> = <span class="keyword">function</span> (<span class="params">context</span>) &#123;</span><br><span class="line">    <span class="comment">// 因为形参就context</span></span><br><span class="line">    <span class="comment">// ...arguments 为 &#123; name: &#x27;b&#x27; &#125; [ 18, &#x27;女&#x27; ]</span></span><br><span class="line">    <span class="comment">// arguments 为 [Arguments] &#123; &#x27;0&#x27;: &#123; name: &#x27;b&#x27; &#125;, &#x27;1&#x27;: [ 18, &#x27;女&#x27; ] &#125;</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>); <span class="comment">// [Function: Person]</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(context); <span class="comment">// &#123; name: &#x27;b&#x27; &#125;</span></span><br><span class="line">    <span class="comment">// 1. 参数检测，给thisArgs做兜底处理，当它不存在时置为window</span></span><br><span class="line">    context = context || <span class="variable language_">window</span>;</span><br><span class="line">    <span class="comment">// 2. 临时挂载</span></span><br><span class="line">    context.<span class="property">fn</span> = <span class="variable language_">this</span></span><br><span class="line">    <span class="comment">// 3.立即执行，通过隐式绑定的方式调用函数</span></span><br><span class="line">    <span class="keyword">let</span> args = <span class="variable language_">arguments</span>[<span class="number">1</span>] <span class="comment">//[ 18, &#x27;女&#x27; ]</span></span><br><span class="line">    <span class="keyword">const</span> res = args ? context.<span class="title function_">fn</span>(...args) : context.<span class="title function_">fn</span>()</span><br><span class="line">    <span class="comment">// 4.销毁临时挂载</span></span><br><span class="line">    <span class="keyword">delete</span> context.<span class="property">fn</span></span><br><span class="line">    <span class="comment">// 5.返回函数调用的返回值</span></span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">Person</span>(<span class="params">age, sex</span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">age</span> = age;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">sex</span> = sex;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>.<span class="property">name</span>, <span class="variable language_">this</span>.<span class="property">age</span>, <span class="variable language_">this</span>.<span class="property">sex</span>);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="title class_">Person</span>.<span class="title function_">apply</span>(&#123; <span class="attr">name</span>: <span class="string">&#x27;a&#x27;</span> &#125;, [<span class="number">13</span>, <span class="string">&#x27;男&#x27;</span>]);</span><br><span class="line"><span class="title class_">Person</span>.<span class="title function_">myApply</span>(&#123; <span class="attr">name</span>: <span class="string">&#x27;b&#x27;</span> &#125;, [<span class="number">18</span>, <span class="string">&#x27;女&#x27;</span>]);</span><br></pre></td></tr></table></figure>
+
+<h4 id="apply-好好写版-边缘检测"><a href="#apply-好好写版-边缘检测" class="headerlink" title="apply 好好写版+边缘检测"></a>apply 好好写版+边缘检测</h4><ol>
+<li>如 Person.apply(12, [13, ‘男’])<br>因为 12 不是对象，所以无法执行 context[fn]，因为没有 null[fn]<br>所以不是对象的，比如 number，boolean，string，要 new 一下。<br>注意，typeof 12 为 number，所以 new Number 一下</li>
+<li>如 Person.apply(null, [13, ‘男’])<br>如果第一个参数传的是 null 或者 undefind，这个时候函数中的 this 会指向 window，所以需要进行一下判断，讲 context 指向 window<br>(context &#x3D;&#x3D; null || context &#x3D;&#x3D; undefined) &amp;&amp; (context &#x3D; window);</li>
+<li>函数检测，this 如果不是构造函数，则抛出异常</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Function</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">myApply</span> = <span class="keyword">function</span> (<span class="params">context</span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>); <span class="comment">// [Function: Person]</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(context); <span class="comment">// 正常情况下 &#123; name: &#x27;b&#x27; &#125; 现在为12</span></span><br><span class="line">    <span class="comment">// 函数检测</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> <span class="variable language_">this</span> !== <span class="string">&#x27;function&#x27;</span>) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">Error</span>(<span class="string">&#x27;type error&#x27;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 边缘检测</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> context !== <span class="string">&#x27;object&#x27;</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">typeof</span> context == <span class="string">&#x27;number&#x27;</span>) context = <span class="keyword">new</span> <span class="title class_">Number</span>(context)</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">typeof</span> context == <span class="string">&#x27;boolean&#x27;</span>) context = <span class="keyword">new</span> <span class="title class_">Boolean</span>(context)</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">typeof</span> context == <span class="string">&#x27;string&#x27;</span>) context = <span class="keyword">new</span> <span class="title class_">String</span>(context)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 1. 参数检测，给thisArgs做兜底处理，当它不存在时置为window</span></span><br><span class="line">    context = context || <span class="variable language_">window</span>;</span><br><span class="line">    <span class="comment">// 2. 临时挂载</span></span><br><span class="line">    context.<span class="property">fn</span> = <span class="variable language_">this</span></span><br><span class="line">    <span class="comment">// 3.立即执行，通过隐式绑定的方式调用函数</span></span><br><span class="line">    <span class="comment">//  [Arguments] &#123; &#x27;0&#x27;: &#123; name: &#x27;b&#x27; &#125;, &#x27;1&#x27;: [ 18, &#x27;女&#x27; ] &#125;</span></span><br><span class="line">    <span class="keyword">let</span> args = <span class="variable language_">arguments</span>[<span class="number">1</span>] <span class="comment">//[ 18, &#x27;女&#x27; ]</span></span><br><span class="line">    <span class="keyword">const</span> res = args ? context.<span class="title function_">fn</span>(...args) : context.<span class="title function_">fn</span>()</span><br><span class="line">    <span class="comment">// 4.销毁临时挂载</span></span><br><span class="line">    <span class="keyword">delete</span> context.<span class="property">fn</span></span><br><span class="line">    <span class="comment">// 5.返回函数调用的返回值</span></span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">Person</span>(<span class="params">age, sex</span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">age</span> = age;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">sex</span> = sex;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>.<span class="property">name</span>, <span class="variable language_">this</span>.<span class="property">age</span>, <span class="variable language_">this</span>.<span class="property">sex</span>);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="title class_">Person</span>.<span class="title function_">apply</span>(<span class="literal">null</span>, [<span class="number">13</span>, <span class="string">&#x27;男&#x27;</span>]); <span class="comment">// undefined 13 &#x27;男&#x27;</span></span><br><span class="line"><span class="title class_">Person</span>.<span class="title function_">myApply</span>(<span class="number">12</span>, [<span class="number">18</span>, <span class="string">&#x27;女&#x27;</span>]); <span class="comment">// undefined 18 &#x27;女&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="bind"><a href="#bind" class="headerlink" title="bind"></a>bind</h2><ol>
+<li><p>bind 接受两个参数，第一个参数是 this 指向，第二个参数是函数接受的参数，这个参数列表可以分多次传入</p>
+</li>
+<li><p>改变 this 指向后不会立即执行</p>
+</li>
+<li><p>返回一个永久改变 this 指向的函数</p>
+</li>
+<li><p>bind 返回一个新函数，执行新函数的的时候 this 指向 obj,然后把 bind 时传入的参数和调用新函数时传入的参数合并，一起传给新函数。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">fn</span>(<span class="params">a, b, c, d</span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>.<span class="property">name</span>)</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(a, b, c, d)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> obj = &#123; <span class="attr">name</span>: <span class="string">&#x27;Jessica&#x27;</span> &#125;</span><br><span class="line"><span class="keyword">let</span> bindFn = fn.<span class="title function_">bind</span>(obj, <span class="number">18</span>, <span class="string">&#x27;女&#x27;</span>)</span><br><span class="line"><span class="title function_">bindFn</span>(<span class="string">&#x27;180cm&#x27;</span>) <span class="comment">// 输出  Jessica  18 &#x27;女&#x27; &#x27;180cm&#x27; undefined</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> obj2 = &#123; <span class="attr">name</span>: <span class="string">&#x27;Jessica2&#x27;</span> &#125;</span><br><span class="line">bindFn = fn.<span class="title function_">bind</span>(obj2, <span class="number">18</span>, <span class="string">&#x27;女&#x27;</span>)</span><br><span class="line"><span class="title function_">bindFn</span>(<span class="string">&#x27;183cm&#x27;</span>) <span class="comment">// 输出  Jessica2  18 &#x27;女&#x27; &#x27;183cm&#x27; undefined</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="手写-bind"><a href="#手写-bind" class="headerlink" title="手写 bind"></a>手写 bind</h3><h4 id="bind-好好写版"><a href="#bind-好好写版" class="headerlink" title="bind 好好写版"></a>bind 好好写版</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Function</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">myBind</span> = <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">    <span class="comment">//  bind是什么？=&gt; 改变运行上下文 =&gt; 传入参数：newThis + args1~argsn</span></span><br><span class="line">    <span class="keyword">const</span> _this = <span class="variable language_">this</span>;</span><br><span class="line">    <span class="keyword">const</span> args = <span class="title class_">Array</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">slice</span>.<span class="title function_">call</span>(<span class="variable language_">arguments</span>); <span class="comment">// 也可以Array.from</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(args); <span class="comment">// [ &#123; name: &#x27;Jessica&#x27; &#125;, 28, &#x27;女&#x27; ]</span></span><br><span class="line">    <span class="keyword">const</span> newThis = args.<span class="title function_">shift</span>();</span><br><span class="line">    <span class="comment">// console.log(args) // [ 28, &#x27;女&#x27; ]</span></span><br><span class="line">    <span class="comment">//  bind要什么？=&gt; 返回一个可执行函数 =&gt; 上下文被改变了的原函数（原函数参数不变）</span></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(newThis) <span class="comment">// &#123; name: &#x27;Jessica&#x27; &#125;</span></span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(args) <span class="comment">// [ 28, &#x27;女&#x27; ]</span></span><br><span class="line">        <span class="keyword">return</span> _this.<span class="title function_">apply</span>(newThis, args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">fn</span>(<span class="params">a, b</span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>.<span class="property">name</span>, a, b)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> obj = &#123; <span class="attr">name</span>: <span class="string">&#x27;Jessica&#x27;</span> &#125;</span><br><span class="line"><span class="keyword">let</span> bindFn = fn.<span class="title function_">bind</span>(obj, <span class="number">18</span>, <span class="string">&#x27;女&#x27;</span>)()</span><br><span class="line">bindFn = fn.<span class="title function_">myBind</span>(obj, <span class="number">28</span>, <span class="string">&#x27;女&#x27;</span>)()</span><br></pre></td></tr></table></figure>
+
+<h4 id="bind-好好写版-箭头函数"><a href="#bind-好好写版-箭头函数" class="headerlink" title="bind 好好写版+箭头函数"></a>bind 好好写版+箭头函数</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Function</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">myBind</span> = <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> args = <span class="title class_">Array</span>.<span class="title function_">from</span>(<span class="variable language_">arguments</span>);</span><br><span class="line">    <span class="keyword">const</span> newThis = args.<span class="title function_">shift</span>();</span><br><span class="line">    <span class="keyword">return</span> <span class="function">() =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="title function_">apply</span>(newThis, args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">fn</span>(<span class="params">a, b</span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>.<span class="property">name</span>, a, b)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> obj = &#123; <span class="attr">name</span>: <span class="string">&#x27;Jessica&#x27;</span> &#125;</span><br><span class="line"><span class="keyword">let</span> bindFn = fn.<span class="title function_">bind</span>(obj, <span class="number">18</span>, <span class="string">&#x27;女&#x27;</span>)() <span class="comment">// Jessica 28 女</span></span><br><span class="line">bindFn = fn.<span class="title function_">myBind</span>(obj, <span class="number">28</span>, <span class="string">&#x27;女&#x27;</span>)() <span class="comment">// Jessica 28 女</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="bind-好好写版-合并新参数"><a href="#bind-好好写版-合并新参数" class="headerlink" title="bind 好好写版+合并新参数"></a>bind 好好写版+合并新参数</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Function</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">myBind</span> = <span class="keyword">function</span> (<span class="params">context, ...args</span>) &#123;</span><br><span class="line">    context = context || <span class="variable language_">window</span></span><br><span class="line">    <span class="keyword">return</span> <span class="function">(<span class="params">...fnArgs</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">let</span> res = <span class="variable language_">this</span>.<span class="title function_">call</span>(context, ...args, ...fnArgs)</span><br><span class="line">        <span class="keyword">return</span> res</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">fn</span>(<span class="params">a, b, c</span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>.<span class="property">name</span>, a, b, c)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> obj = &#123; <span class="attr">name</span>: <span class="string">&#x27;Jessica&#x27;</span> &#125;</span><br><span class="line"><span class="keyword">let</span> bindFn = fn.<span class="title function_">bind</span>(obj, <span class="number">18</span>, <span class="string">&#x27;女&#x27;</span>)() <span class="comment">// Jessica 18 女 undefined</span></span><br><span class="line">bindFn = fn.<span class="title function_">myBind</span>(obj, <span class="number">28</span>, <span class="string">&#x27;女&#x27;</span>)</span><br><span class="line"><span class="title function_">bindFn</span>(<span class="string">&#x27;180cm&#x27;</span>) <span class="comment">// Jessica 28 女 180cm</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="bind-好好写版-合并新参数-考虑新函数是不是会当作构造函数"><a href="#bind-好好写版-合并新参数-考虑新函数是不是会当作构造函数" class="headerlink" title="bind 好好写版+合并新参数+考虑新函数是不是会当作构造函数"></a>bind 好好写版+合并新参数+考虑新函数是不是会当作构造函数</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="title class_">Function</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">myBind</span> = <span class="keyword">function</span> (<span class="params">context, ...args</span>) &#123;</span><br><span class="line">    <span class="comment">// 不传默认是全局，window</span></span><br><span class="line">    context = context || <span class="variable language_">window</span></span><br><span class="line">    <span class="comment">// 把this存到fn，这样更能看出它表示一个函数</span></span><br><span class="line">    <span class="keyword">let</span> fn = <span class="variable language_">this</span></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">function</span> <span class="title function_">newFn</span>(<span class="params">...fnArgs</span>) &#123;</span><br><span class="line">        <span class="keyword">let</span> res</span><br><span class="line">        <span class="comment">// 要考虑新函数是不是会当作构造函数</span></span><br><span class="line">        <span class="keyword">if</span> (<span class="variable language_">this</span> <span class="keyword">instanceof</span> newFn) &#123;</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="number">123</span>)</span><br><span class="line">            <span class="comment">// 如果是构造函数则调用new 并且合并参数args，fnArgs</span></span><br><span class="line">            res = <span class="keyword">new</span> <span class="title function_">fn</span>(...args, ...fnArgs)</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="comment">// 当作普通函数调用 也可以用上面定义的_call</span></span><br><span class="line">            res = fn.<span class="title function_">call</span>(context, ...args, ...fnArgs)</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">fn</span>(<span class="params">a, b, c</span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>.<span class="property">name</span>, a, b, c)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> obj = &#123; <span class="attr">name</span>: <span class="string">&#x27;Jessica&#x27;</span> &#125;</span><br><span class="line"><span class="keyword">let</span> bindFn = fn.<span class="title function_">bind</span>(obj, <span class="number">18</span>, <span class="string">&#x27;女&#x27;</span>)() <span class="comment">// Jessica 18 女 undefined</span></span><br><span class="line">bindFn = fn.<span class="title function_">myBind</span>(obj, <span class="number">28</span>, <span class="string">&#x27;女&#x27;</span>)</span><br><span class="line"><span class="title function_">bindFn</span>(<span class="string">&#x27;180cm&#x27;</span>) <span class="comment">// Jessica 28 女 180cm</span></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2020/08/07/JS_%E6%89%8B%E5%86%99bind%E5%92%8Capply%E5%92%8Ccall/" data-id="cll7pljvt0003u9q00uzxhsyc" data-title="JS_手写bind和apply和call" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-JS_柯里化" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2020/08/07/JS_%E6%9F%AF%E9%87%8C%E5%8C%96/" class="article-date">
@@ -627,58 +882,12 @@
 
 
   
-    <article id="post-hello-world" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2020/01/01/hello-world/" class="article-date">
-  <time class="dt-published" datetime="2019-12-31T16:00:00.000Z" itemprop="datePublished">2020-01-01</time>
-</a>
+
+
+  <nav id="page-nav">
     
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2020/01/01/hello-world/">Hello World</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2020/01/01/hello-world/" data-id="cld8x99e60000ezq0a0cc5vzv" data-title="Hello World" class="article-share-link">Share</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+  </nav>
 
 </section>
         
@@ -710,7 +919,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/08/">August 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a></li></ul>
     </div>
   </div>
 
@@ -723,7 +932,15 @@
       <ul>
         
           <li>
+            <a href="/2023/08/12/JS_%E6%95%B0%E7%BB%84%E6%89%81%E5%B9%B3/">(no title)</a>
+          </li>
+        
+          <li>
             <a href="/2020/08/07/JS_map%E4%B8%8Eweakmap/">JS_map、weakmap与object</a>
+          </li>
+        
+          <li>
+            <a href="/2020/08/07/JS_%E6%89%8B%E5%86%99%E6%B7%B1%E6%8B%B7%E8%B4%9D/">JS_手写深拷贝</a>
           </li>
         
           <li>
@@ -732,14 +949,6 @@
         
           <li>
             <a href="/2020/08/07/JS_map%E4%B8%8EforEach%E5%8C%BA%E5%88%AB/">JS_map与forEach区别</a>
-          </li>
-        
-          <li>
-            <a href="/2020/08/07/JS_this%E4%BD%9C%E7%94%A8%E5%9F%9F%E4%B8%8E%E4%B8%8A%E4%B8%8B%E6%96%87/">JS_map与forEach区别</a>
-          </li>
-        
-          <li>
-            <a href="/2020/08/07/JS_%E6%95%B0%E7%BB%84%E5%8E%BB%E9%87%8D/">JS_数组去重</a>
           </li>
         
       </ul>
